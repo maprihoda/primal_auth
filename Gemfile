@@ -2,6 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
 gem 'sqlite3'
+gem 'jquery-rails'
 gem "bcrypt-ruby", :require => "bcrypt"
 
 group :assets do
@@ -17,9 +18,14 @@ end
 
 group :test, :development do
   gem 'rspec-rails'
-  gem 'capybara'
+end
+
+group :test do
+  gem 'spork'
   gem 'factory_girl_rails'
   gem 'launchy'
-  gem 'spork'
+  gem 'capybara'
+  gem 'given_when_then'
+  gem 'show_me_the_cookies'
 end
 

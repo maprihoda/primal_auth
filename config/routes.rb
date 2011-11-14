@@ -1,4 +1,22 @@
 PrimalAuth::Application.routes.draw do
+
+  get 'dashboard' => "dashboard#index"
+
+  # Using post to define the route, the signup and login forms will have
+  # the correct path when validation fails.
+  get 'signup' => 'users#new'
+  post 'signup' => 'users#create'
+
+  get 'user/edit' => 'users#edit', :as => :edit_current_user
+  put 'signup' => 'users#update'
+
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create', :as => :new_session
+
+  get 'logout' => 'sessions#destroy'
+
+  root :to => 'home#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -56,3 +74,4 @@ PrimalAuth::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id(.:format)))'
 end
+

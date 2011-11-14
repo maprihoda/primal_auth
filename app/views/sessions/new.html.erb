@@ -1,0 +1,27 @@
+<% title "Log in" %>
+
+<p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+
+<div id="login_form">
+  <%= form_tag new_session_path do %>
+    <p>
+      <%= label_tag :email, "Email" %><br />
+      <%= text_field_tag :email, params[:email] %>
+    </p>
+
+    <p>
+      <%= label_tag :password, "Password" %><br />
+      <%= password_field_tag :password %>
+    </p>
+
+    <p>
+      <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+      <%= label_tag :remember_me, "Remember me" %>
+    </p>
+
+    <p><%= submit_tag "Log in" %></p>
+  <% end %>
+</div>
+
+<%= link_to 'Home', root_path  %>
+
