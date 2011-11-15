@@ -1,4 +1,4 @@
-# Primal Auth
+# primal_auth
 
 A Ruby on Rails example application with authentication built from scratch.
 
