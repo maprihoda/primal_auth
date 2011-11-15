@@ -164,6 +164,3 @@ describe 'Editting profile' do
   end
 end
 
-
-# eof
-

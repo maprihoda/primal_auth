@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Signing up' do
-  let(:user) { stub('user', :name => 'Mr XY', :email => 'xy@example.com', :password => 'secret' ) }
+  let(:user) { Factory.build(:user) }
   before do
     visit signup_path
     page.should have_selector 'div[id="signup_form"]'
@@ -92,10 +92,4 @@ describe 'Login required for not logged in users' do
     current_path.should == login_path
   end
 end
-
-
-
-
-
-# eof
 
