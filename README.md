@@ -26,12 +26,11 @@ The app works ok on Ruby ~> 1.9.2.
 
 Run the tests with
 
-  rspec spec
+  bundle exec rspec spec
 
 
 ## TODO
 
-* recoverable
 * confirmable
 * CouchDB fork
 
