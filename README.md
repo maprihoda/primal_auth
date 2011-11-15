@@ -12,11 +12,11 @@ Full-featured gems like Devise are great authentication solutions, especially su
 
 Just git clone the application, cd to the root folder and run
 
-  bundle
+    bundle
 
 and then
 
-  rails server -b localhost
+    rails server -b localhost
 
 
 The app works ok on Ruby ~> 1.9.2.
@@ -26,7 +26,7 @@ The app works ok on Ruby ~> 1.9.2.
 
 Run the tests with
 
-  bundle exec rspec spec
+    bundle exec rspec spec
 
 
 ## TODO
