@@ -14,10 +14,24 @@ Spork.prefork do
   RSpec.configure do |config|
     config.mock_with :rspec
 
-    config.infer_base_class_for_anonymous_controllers = false
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
 
-    config.include ShowMeTheCookies, :type => :request
+    config.before(:suite) do
+      DatabaseCleaner.strategy = :truncation
+    end
+
+    config.before(:each) do
+      DatabaseCleaner.start
+    end
+
+    config.after(:each) do
+      DatabaseCleaner.clean
+    end
+
+    config.include HelperMethods
+    config.include ShowMeTheCookies
+    config.include MailerMacros
+
   end
 end
 

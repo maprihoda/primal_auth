@@ -15,6 +15,8 @@ PrimalAuth::Application.routes.draw do
 
   get 'logout' => 'sessions#destroy'
 
+  resources :password_resets, :only => [:new, :create, :edit, :update]
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:
