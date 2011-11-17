@@ -6,7 +6,7 @@ require 'spec_helper'
 
 describe 'Signing up' do
   Given 'there is a guest user' do
-    let(:user) { stub('user', :name => 'Mr Bean', :email => 'bean@example.com', :password => 'secret' ) }
+    let(:user) { Factory.build(:user) }
 
     When 'he goes to the home page' do
       before { visit root_path }
@@ -32,8 +32,8 @@ describe 'Signing up' do
           end
 
           Then 'he should be signed up successfully' do
-            page.should have_content('Signed up!')
-            current_path.should == root_path
+            page.should have_content('confirm your email address')
+            current_path.should == confirmation_needed_path
             User.count.should == 1
           end
         end
@@ -108,7 +108,7 @@ describe 'Logging out' do
   let!(:last_token) { user.remember_token }
   before do
     visit login_path
-    login
+    login(user)
   end
 
     When 'he clicks the Logout link' do
@@ -132,7 +132,7 @@ describe 'Editting profile' do
     let(:user) { Factory(:user) }
     before do
       visit login_path
-      login
+      login(user)
     end
 
     When 'he clicks the Edit profile link' do

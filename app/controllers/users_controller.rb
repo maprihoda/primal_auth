@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :login_required, :only => [:new, :create]
+  skip_before_filter :login_required, :only => [:new, :create, :confirmation_needed]
 
   def new
     @user = User.new
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      redirect_to root_url, :notice => "Signed up! You can now log in."
+      redirect_to :action => :confirmation_needed, :controller => :confirmations
     else
       render 'new'
     end

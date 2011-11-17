@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem "bcrypt-ruby", :require => "bcrypt"
 
 group :assets do
-  gem 'uglifier'
+  gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do

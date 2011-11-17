@@ -5,7 +5,7 @@ A Ruby on Rails example application with authentication built from scratch.
 
 ## Motivation
 
-Full-featured gems like Devise are great authentication solutions, there's no doubt about it. They are very usefull e.g. when quickly prototyping a new application. However, I prefer to implement authentication from scratch as it's easier for me to fully understand and later maintain/extend it.
+Full-featured gems like Devise are great authentication solutions - they are very usefull e.g. when quickly prototyping a new application. However, I prefer to implement authentication from scratch as it's easier for me to maintain/customize/extend it.
 
 
 ## Installation
@@ -31,11 +31,13 @@ Run the tests with
 
 ## TODO
 
-* confirmable
+* trackable
 * CouchDB fork
 
 
 ## Credits
 
 The core of the application is based on the example application Ryan Bates used in his railscasts on authentication ([railscasts on authentication](http://asciicasts.com/tags/authentication)).
+
+The app also takes inspiration from [Devise](https://github.com/plataformatec/devise).
 
