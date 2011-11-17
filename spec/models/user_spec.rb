@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   let(:user) { Factory(:user) }
+  before { reset_email }
 
   context 'validations' do
     it 'the user should be allowed to edit her profile without providing the password' do
@@ -43,7 +44,7 @@ describe User do
     it "saves the time the password reset was sent" do
       Timecop.freeze
       user.send_password_reset
-      Time.use_zone("Paris") do
+      Time.use_zone("Prague") do
         user.reload.password_reset_sent_at.should == Time.zone.now
       end
     end
@@ -53,6 +54,31 @@ describe User do
       last_email.to.should include(user.email)
     end
   end
+
+  context 'email confirmation' do
+    it 'generates the confirmation_token on user#create' do
+      user.confirmation_token.should_not be_nil
+    end
+
+    it 'saves the time the confirmation_token was sent' do
+      Timecop.freeze
+      user.send_confirmation_instructions
+      user.reload.confirmation_sent_at.should == Time.zone.now
+    end
+
+    it "delivers email to user" do
+      user.send_confirmation_instructions
+      last_email.to.should include(user.email)
+    end
+
+    it 'confirms user' do
+      user.confirm!
+      user.confirmed?.should be_true
+    end
+
+  end
+
+
 
 end
 

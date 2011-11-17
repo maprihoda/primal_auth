@@ -2,8 +2,8 @@ PrimalAuth::Application.routes.draw do
 
   get 'dashboard' => "dashboard#index"
 
-  # Using post to define the route, the signup and login forms will have
-  # the correct path when validation fails.
+  # By using 'get' and 'post' to define the routes, we ensure that
+  # the signup and login forms will have the correct path when validation fails.
   get 'signup' => 'users#new'
   post 'signup' => 'users#create'
 
@@ -16,6 +16,9 @@ PrimalAuth::Application.routes.draw do
   get 'logout' => 'sessions#destroy'
 
   resources :password_resets, :only => [:new, :create, :edit, :update]
+
+  get 'confirm/:id' => 'confirmations#confirm', :as => :confirmation
+  get 'confirmation_needed' => 'confirmations#confirmation_needed'
 
   root :to => 'home#index'
 

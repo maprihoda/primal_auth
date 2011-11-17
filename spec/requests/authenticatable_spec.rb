@@ -2,24 +2,17 @@ require 'spec_helper'
 
 describe 'Signing up' do
   let(:user) { Factory.build(:user) }
-  before do
-    visit signup_path
-    page.should have_selector 'div[id="signup_form"]'
-  end
 
   it 'with correct credentials' do
-    fill_in 'Name', :with => user.name
-    fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => user.password
-    fill_in 'Confirm Password', :with => user.password
-    click_button 'Sign up'
-
-    page.should have_content('Signed up!')
-    current_path.should == root_path
+    sign_up(user)
+    page.should have_content('confirm your email address')
+    current_path.should == confirmation_needed_path
     User.count.should == 1
+    User.first.should_not be_confirmed
   end
 
   it 'with incorrect credentials' do
+    visit signup_path
     click_button 'Sign up'
     page.should have_content('errors prohibited')
     current_path.should == signup_path
@@ -32,13 +25,7 @@ describe 'Logging in' do
   before { visit root_path }
 
   it 'with correct credentials' do
-    click_link 'Log in'
-    page.should have_selector 'div[id="login_form"]'
-
-    fill_in 'Email', :with => user.email
-    fill_in 'Password', :with => user.password
-    click_button 'Log in'
-
+    login(user)
     page.should have_content('Logged in successfully')
     page.should have_content(user.email)
     current_path.should == dashboard_path
@@ -56,7 +43,7 @@ end
 describe 'Logging out' do
   let(:user) { Factory(:user) }
   let!(:last_token) { user.remember_token }
-  before { login }
+  before { login(user) }
 
   it 'should log out successfully' do
     click_link 'Log out'
@@ -70,7 +57,7 @@ end
 describe 'Editting profile' do
   let(:user) { Factory(:user) }
   let!(:last_name) { user.name }
-  before { login }
+  before { login(user) }
 
   it 'should edit profile successfully' do
     visit edit_current_user_path
