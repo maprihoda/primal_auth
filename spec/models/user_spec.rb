@@ -78,7 +78,21 @@ describe User do
 
   end
 
-
+  it 'deletes unconfimed users after 24 hours since sending them the confirmation token' do
+    user = Factory.create(:user, :confirmed_at => nil)
+    user.confirmation_sent_at = 25.hours.ago and user.save
+    User.count.should == 1
+    User.delete_unconfirmed.should == 1
+  end
 
 end
+
+
+
+
+
+
+
+
+# eof
 

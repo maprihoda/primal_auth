@@ -26,6 +26,14 @@ class User < ActiveRecord::Base
     return user if user && user.password_hash == user.encrypt_password(pass)
   end
 
+  def self.delete_unconfirmed
+    ids = User.where('confirmed_at IS NULL AND confirmation_sent_at < ?', 24.hour.ago).select(:id).map(&:id)
+    User.delete(ids) # NB: we don't have any destory callback nor dependant associations so this is OK (and fast)
+
+    # TODO: if, in the future, there are callbacks and/or associations on the User model,
+    # we should _destroy_ the objects rather than deleting them via raw sql
+  end
+
   def encrypt_password(pass)
     BCrypt::Engine.hash_secret(pass, password_salt)
   end

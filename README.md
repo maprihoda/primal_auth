@@ -5,7 +5,14 @@ A Ruby on Rails example application with authentication built from scratch.
 
 ## Motivation
 
-Full-featured gems like Devise are great authentication solutions - they are very usefull e.g. when quickly prototyping a new application. However, I prefer to implement authentication from scratch as it's easier for me to maintain/customize/extend it.
+Full-featured solutions like the Devise engine are often a good choice when authentication is needed. However, I prefer to implement authentication in a Rails app from scratch as I find it much easier to customize than a Rails engine.
+
+
+## Tell me more
+
+The application is inspired by Ryan Bates' execellent [railscasts on authentication](http://asciicasts.com/tags/authentication) and the [nifty_authentication generator](https://github.com/ryanb/nifty-generators/blob/master/rails_generators/nifty_authentication/USAGE). I made several modifications to the original code base, added other features (Confirmable), wired everything together into a fully functional Ruby on Rails application, and thoroughly tested everything (mainly unit and integration tests with RSpec and Capybara).
+
+The app also takes inspiration from [Devise](https://github.com/plataformatec/devise).
 
 
 ## Installation
@@ -31,13 +38,7 @@ Run the tests with
 
 ## TODO
 
-* trackable
+* Trackable
+* Omniauthenticatable
 * CouchDB fork
-
-
-## Credits
-
-The core of the application is based on the example application Ryan Bates used in his railscasts on authentication ([railscasts on authentication](http://asciicasts.com/tags/authentication)).
-
-The app also takes inspiration from [Devise](https://github.com/plataformatec/devise).
 
