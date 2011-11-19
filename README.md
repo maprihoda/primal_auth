@@ -11,11 +11,11 @@ Full-featured solutions like the Devise engine are often a good choice when auth
 ## Tell me more
 
 The authentication needs covered are:
-* signing up
-* confirming sign-up by email
-* logging in/out
-* remembering logged in user
-* resetting password
+* Signing up
+* Confirming sign-up by email
+* Logging in/out
+* Remembering logged in user
+* Resetting password
 
 The application is inspired by Ryan Bates' excellent [railscasts on authentication](http://asciicasts.com/tags/authentication) and the [nifty_authentication generator](https://github.com/ryanb/nifty-generators/blob/master/rails_generators/nifty_authentication/USAGE). I made several modifications to the original code base, added other features (Confirmable), wired everything together into a fully functional Ruby on Rails application, and thoroughly tested everything (mainly unit and integration tests with RSpec and Capybara).
 
