@@ -17,9 +17,10 @@ The authentication needs covered are:
 * Logging in/out
 * Remembering logged in user
 * Resetting password
+* Tracking users (like e.g. last login, last activity, etc.)
 
 
-The application is inspired by Ryan Bates' excellent [railscasts on authentication](http://asciicasts.com/tags/authentication) and the [nifty_authentication generator](https://github.com/ryanb/nifty-generators/blob/master/rails_generators/nifty_authentication/USAGE). I made several modifications to the original code base, added other features (Confirmable), wired everything together into a fully functional Ruby on Rails application, and thoroughly tested everything (mainly unit and integration tests with RSpec and Capybara).
+The application is inspired by Ryan Bates' excellent [railscasts on authentication](http://asciicasts.com/tags/authentication) and the [nifty_authentication generator](https://github.com/ryanb/nifty-generators/blob/master/rails_generators/nifty_authentication/USAGE). I made several modifications to the original code base, added other features (Confirmable, Trackable), wired everything together into a fully functional Ruby on Rails application, and thoroughly tested everything (mainly unit and integration tests with RSpec and Capybara).
 
 It also takes inspiration from [Devise](https://github.com/plataformatec/devise).
 
@@ -47,8 +48,7 @@ Run the tests with
 
 ## TODO
 
-* Account cancellation
-* Trackable
-* Oauth
+* Omniauthable
+* Account deletion
 * CouchDB fork
 

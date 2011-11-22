@@ -1,5 +1,7 @@
 module Authentication
   def self.included(controller)
+    controller.send :after_filter, :save_current_user_if_dirty, :update_last_activity_at
+
     controller.send :helper_method, :current_user, :logged_in?
   end
 
@@ -27,6 +29,15 @@ module Authentication
 
   def store_location
     session[:return_to] = request.url
+  end
+
+  # NB: last_activity_at is not updated on logout as we don't have current_user
+  def update_last_activity_at
+    current_user.last_activity_at = Time.zone.now if current_user
+  end
+
+  def save_current_user_if_dirty
+    current_user.save! if current_user && current_user.changed?
   end
 end
 

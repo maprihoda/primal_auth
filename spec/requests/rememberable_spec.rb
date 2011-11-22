@@ -14,7 +14,7 @@ describe 'Remember me' do
     page.should have_content(user.email)
     current_path.should == dashboard_path
 
-    # similate closing the browser
+    # simulate closing the browser
     # this deletes the session cookie and any expired cookies so our remember_me cookie stays untouched
     # (see the show_me_the_cookies gem)
     expire_cookies

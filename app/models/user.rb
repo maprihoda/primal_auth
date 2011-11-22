@@ -38,8 +38,12 @@ class User < ActiveRecord::Base
     BCrypt::Engine.hash_secret(pass, password_salt)
   end
 
-  def reset_remember_token!
+  def reset_remember_token
     generate_token(:remember_token)
+  end
+
+  def reset_remember_token_and_save
+    reset_remember_token
     save(:validate => false)
   end
 
@@ -64,6 +68,16 @@ class User < ActiveRecord::Base
 
   def confirmed?
     !!confirmed_at
+  end
+
+  def track_on_login(request)
+    self.last_login_at = Time.zone.now
+    self.last_login_ip = request.remote_ip
+    self.login_count += 1
+  end
+
+  def track_on_logout
+    self.last_logout_at = Time.zone.now
   end
 
   private

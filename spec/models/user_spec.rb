@@ -27,7 +27,7 @@ describe User do
 
     it 'it resets the remember token to a new value' do
       last_token = user.remember_token
-      user.reset_remember_token!
+      user.reset_remember_token_and_save
       user.reload
       user.remember_token.should_not == last_token
     end
