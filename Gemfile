@@ -21,12 +21,11 @@ gem "rspec-rails", :group => [:test, :development]
 
 group :test do
   gem 'launchy'
-  gem 'factory_girl_rails'
+  gem "factory_girl_rails"
   gem 'database_cleaner'
   gem 'given_when_then'
   gem 'capybara'
   gem 'show_me_the_cookies'
-  gem 'spork'
   gem "timecop"
 end
 
