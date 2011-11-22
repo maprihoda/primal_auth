@@ -1,6 +1,7 @@
 module Authentication
   def self.included(controller)
     controller.send :helper_method, :current_user, :logged_in?
+    controller.send :after_filter, :save_current_user_if_dirty
   end
 
   def current_user
@@ -27,6 +28,10 @@ module Authentication
 
   def store_location
     session[:return_to] = request.url
+  end
+
+  def save_current_user_if_dirty
+    current_user.save! if current_user && current_user.changed?
   end
 end
 

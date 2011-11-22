@@ -47,8 +47,8 @@ Run the tests with
 
 ## TODO
 
-* Account cancellation
 * Trackable
 * Oauth
+* Delete account
 * CouchDB fork
 
