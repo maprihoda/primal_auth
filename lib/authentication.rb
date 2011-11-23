@@ -1,7 +1,5 @@
 module Authentication
   def self.included(controller)
-    controller.send :after_filter, :save_current_user_if_dirty, :update_last_activity_at
-
     controller.send :helper_method, :current_user, :logged_in?
   end
 
