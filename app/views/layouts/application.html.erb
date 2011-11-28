@@ -17,7 +17,13 @@
       <% user_navigation do -%>
         <div id="user_nav">
         <% if logged_in? -%>
-          <%= current_user.email %> • <%= link_to 'Edit profile', edit_current_user_path %> • <%= link_to 'Log out', logout_path %>
+          Welcome, <%= current_user.name %> •
+
+          <% unless current_user.authenticated_with_omniauth? -%>
+            <%= link_to 'Edit profile', edit_current_user_path %> •
+          <% end -%>
+
+          <%= link_to 'Log out', logout_path %>
         <% else -%>
           <%= link_to 'Sign up', signup_path %> or <%= link_to 'Log in', login_path %>
         <% end -%>

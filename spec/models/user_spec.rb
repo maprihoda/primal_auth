@@ -85,14 +85,24 @@ describe User do
     User.delete_unconfirmed.should == 1
   end
 
+  context 'authentication with omniauth' do
+    before do
+      auth = { 'provider' => 'github', 'uid' => '4321', 'user_info' => { 'name' => 'Alf', 'email' => 'alf@example.com' } }
+      @user = User.create_with_omniauth(auth)
+      @user.reload
+    end
+
+    it 'does not require confirmation' do
+      @user.confirmation_token.should be_nil
+      @user.confirmation_sent_at.should be_nil
+      last_email.should be_nil
+    end
+
+    it 'is authenticated_with_omniauth' do
+      @user.should be_authenticated_with_omniauth
+      @user.email.should == 'alf@example.com'
+    end
+  end
+
 end
-
-
-
-
-
-
-
-
-# eof
 

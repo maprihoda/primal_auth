@@ -27,7 +27,7 @@ describe 'Logging in' do
   it 'with correct credentials' do
     login(user)
     page.should have_content('Logged in successfully')
-    page.should have_content(user.email)
+    page.should have_content(user.name)
     current_path.should == dashboard_path
   end
 
