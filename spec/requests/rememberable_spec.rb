@@ -11,7 +11,7 @@ describe 'Remember me' do
   it "remember user so they don't have to log in after they come back" do
     check 'Remember me'
     click_button 'Log in'
-    page.should have_content(user.email)
+    page.should have_content(user.name)
     current_path.should == dashboard_path
 
     # simulate closing the browser
@@ -20,13 +20,13 @@ describe 'Remember me' do
     expire_cookies
 
     visit dashboard_path
-    page.should have_content(user.email)
+    page.should have_content(user.name)
     current_path.should == dashboard_path
   end
 
   it "do not remember user if they don't check the 'Remember me' checkbox" do
     click_button 'Log in'
-    page.should have_content(user.email)
+    page.should have_content(user.name)
     current_path.should == dashboard_path
 
     expire_cookies

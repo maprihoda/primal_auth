@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
   end
 
   def save_current_user_if_dirty
-    current_user.save! if current_user && current_user.changed?
+    current_user.save!(:validate => false) if current_user && current_user.changed?
   end
 end
 

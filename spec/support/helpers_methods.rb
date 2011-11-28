@@ -17,6 +17,10 @@ module HelperMethods
     click_button 'Log in'
   end
 
+  def login_with_omniauth(service = :github)
+    visit "/auth/#{service}"
+  end
+
   def logout
     click_link 'Log out'
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111121205259) do
+ActiveRecord::Schema.define(:version => 20111127161128) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20111121205259) do
     t.datetime "last_activity_at"
     t.integer  "login_count",            :default => 0
     t.string   "last_login_ip"
+    t.string   "provider"
+    t.string   "uid"
   end
 
 end

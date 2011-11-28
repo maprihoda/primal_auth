@@ -20,6 +20,9 @@ PrimalAuth::Application.routes.draw do
   get 'confirm/:id' => 'confirmations#confirm', :as => :confirmation
   get 'confirmation_needed' => 'confirmations#confirmation_needed'
 
+  match "auth/:provider/callback" => "omniauth#create"
+  match 'auth/failure' => 'omniauth#failure'
+
   root :to => 'home#index'
 
   # The priority is based upon order of creation:

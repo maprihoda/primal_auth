@@ -35,6 +35,17 @@ RSpec.configure do |config|
 
 end
 
+OmniAuth.config.test_mode = true
+
+OmniAuth.config.mock_auth[:github] = {
+  'provider' => 'github',
+  'uid' => '123545',
+  'user_info' => {
+    'name' => 'Franz Josef',
+    'email' => 'fjosef@example.com'
+  }
+}
+
 # http://calicowebdev.com/2011/01/25/rails-3-sqlite-3-in-memory-databases/
 # We are using sqlite3 and the in-memory database, so this is enough
 puts "creating sqlite in memory database"

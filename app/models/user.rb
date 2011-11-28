@@ -18,8 +18,8 @@ class User < ActiveRecord::Base
 
   before_save :prepare_password
   before_create { generate_token(:remember_token) }
-  before_create { generate_token(:confirmation_token) }
-  after_create { send_confirmation_instructions }
+  before_create { generate_token(:confirmation_token) unless authenticated_with_omniauth? }
+  after_create { send_confirmation_instructions unless authenticated_with_omniauth? }
 
   def self.authenticate(email, pass)
     user = where('email = ? AND confirmed_at IS NOT NULL', email).first
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
 
   def reset_remember_token_and_save
     reset_remember_token
-    save(:validate => false)
+    save!(:validate => false)
   end
 
   def send_password_reset
@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
 
   def confirm!
     self.confirmed_at = Time.zone.now
-    save(:validate => false)
+    save!(:validate => false)
   end
 
   def confirmed?
@@ -78,6 +78,20 @@ class User < ActiveRecord::Base
 
   def track_on_logout
     self.last_logout_at = Time.zone.now
+  end
+
+  def self.create_with_omniauth(auth)
+    user = new
+    user.provider = auth["provider"]
+    user.uid = auth["uid"]
+    user.name = auth["user_info"]["name"]
+    user.email = auth["user_info"]["email"] if auth["user_info"]["email"].present?
+    user.save!(:validate => false)
+    user
+  end
+
+  def authenticated_with_omniauth?
+    uid && provider
   end
 
   private

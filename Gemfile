@@ -6,6 +6,9 @@ gem 'jquery-rails'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'whenever', :require => false
 
+gem 'omniauth'
+gem 'omniauth-github'
+
 group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
