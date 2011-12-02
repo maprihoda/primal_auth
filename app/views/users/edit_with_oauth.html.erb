@@ -1,13 +1,17 @@
+<% title "Update Profile" %>
+
 <div id="signup_form">
   <%= form_for @user, :url => signup_path do |f| %>
     <%= render "shared/error_messages", :target => @user %>
 
     <%= render "name", :f => f %>
     <%= render "email", :f => f %>
-    <%= render "password", :f => f %>
-    <%= render "password_confirmation", :f => f %>
 
-    <p><%= f.submit (@user.new_record? ? "Sign up" : "Update") %></p>
+    <input type="hidden" name="oauth" value="1" />
+
+    <p><%= f.submit "Update" %></p>
   <% end %>
 </div>
+
+<p><%= link_to 'Dashboard', dashboard_path  %></p>
 

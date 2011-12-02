@@ -41,8 +41,7 @@ OmniAuth.config.mock_auth[:github] = {
   'provider' => 'github',
   'uid' => '123545',
   'user_info' => {
-    'name' => 'Franz Josef',
-    'email' => 'fjosef@example.com'
+    'name' => 'Franz Joseph'
   }
 }
 

@@ -69,6 +69,7 @@ describe 'Editting profile' do
     click_button 'Update'
     user.reload
     user.name.should_not == last_name
+    current_path.should == dashboard_path
   end
 
 end

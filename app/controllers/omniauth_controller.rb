@@ -13,7 +13,7 @@ class OmniauthController < ApplicationController
       cookies[:remember_token] = @current_user.remember_token
     end
 
-    redirect_to dashboard_url, :notice => "Logged in successfully with #{auth['provider'].capitalize}."
+    redirect_to dashboard_url, :notice => "Logged in successfully with #{auth['provider'].capitalize}. Please visit your profile page to set your email."
   end
 
   def failure
