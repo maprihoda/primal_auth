@@ -28,5 +28,9 @@ module HelperMethods
   def should_be_on(path)
     current_path.should == path
   end
+
+  def firefox
+    save_and_open_page
+  end
 end
 

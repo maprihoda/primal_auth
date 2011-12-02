@@ -9,7 +9,18 @@ describe 'Authenticating with Omniauth' do
     user = User.first
     page.should have_content(user.name)
 
-    page.should_not have_content('Edit profile')
+    page.should have_content('Edit profile')
+  end
+
+  it 'logging in with invalid credentials' do
+    github = OmniAuth.config.mock_auth[:github]
+    OmniAuth.config.mock_auth[:github] = :invalid_credentials
+
+    login_with_omniauth
+    current_path.should == root_path
+    page.should have_content('Authentication error')
+
+    OmniAuth.config.mock_auth[:github] = github
   end
 
   it 'log out after logging in with omniauth' do
@@ -18,11 +29,20 @@ describe 'Authenticating with Omniauth' do
     page.should have_content('You have been logged out')
   end
 
-  it 'logging in with invalid credentials' do
-    OmniAuth.config.mock_auth[:github] = :invalid_credentials
+  it 'should edit profile successfully' do
     login_with_omniauth
-    current_path.should == root_path
-    page.should have_content('Authentication error')
+    user = User.first
+    visit edit_current_user_path(:oauth => 1)
+
+    page.should have_selector(%Q(input[value="#{user.name}"]))
+
+    find_field('Email').value.should be_blank
+    user.email.should be_nil
+
+    fill_in 'Email', :with => 'email@example.com'
+    click_button 'Update'
+    user.reload
+    user.email.should == 'email@example.com'
   end
 end
 

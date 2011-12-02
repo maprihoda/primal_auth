@@ -19,7 +19,9 @@
         <% if logged_in? -%>
           Welcome, <%= current_user.name %> •
 
-          <% unless current_user.authenticated_with_omniauth? -%>
+          <% if current_user.authenticated_with_omniauth? -%>
+            <%= link_to 'Edit profile', edit_current_user_path(:oauth => 1) %> •
+          <% else -%>
             <%= link_to 'Edit profile', edit_current_user_path %> •
           <% end -%>
 
