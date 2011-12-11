@@ -34,6 +34,8 @@ Just git clone the application, cd to the root folder and run
 
 and then
 
+    rake db:migrate
+
     rails server -b localhost
 
 
@@ -49,8 +51,9 @@ Run the tests with
 
 ## TODO
 
+* Lockable
+* Timeoutable
 * Account deletion
-* CouchDB fork
 
 
 ## Contributing
