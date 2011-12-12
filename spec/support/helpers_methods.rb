@@ -29,7 +29,7 @@ module HelperMethods
     current_path.should == path
   end
 
-  def firefox
+  def browser
     save_and_open_page
   end
 end
