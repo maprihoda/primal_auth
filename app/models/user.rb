@@ -84,8 +84,8 @@ class User < ActiveRecord::Base
     user = new
     user.provider = auth["provider"]
     user.uid = auth["uid"]
-    user.name = auth["user_info"]["name"]
-    user.email = auth["user_info"]["email"] if auth["user_info"]["email"].present?
+    user.name = auth["info"]["name"]
+    user.email = auth["info"]["email"] if auth["info"]["email"].present?
     user.save!(:validate => false)
     user
   end

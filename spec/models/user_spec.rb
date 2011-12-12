@@ -87,7 +87,7 @@ describe User do
 
   context 'authentication with omniauth' do
     before do
-      auth = { 'provider' => 'github', 'uid' => '4321', 'user_info' => { 'name' => 'Alf', 'email' => 'alf@example.com' } }
+      auth = { 'provider' => 'github', 'uid' => '4321', 'info' => { 'name' => 'Alf', 'email' => 'alf@example.com' } }
       @user = User.create_with_omniauth(auth)
       @user.reload
     end
