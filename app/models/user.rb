@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   before_save :prepare_password
   before_create { generate_token(:remember_token) }
   before_create { generate_token(:confirmation_token) unless authenticated_with_omniauth? }
-  after_create { send_confirmation_instructions unless authenticated_with_omniauth? }
+  after_create { send_confirmation_instructions_and_save unless authenticated_with_omniauth? }
 
   def self.authenticate(email, pass)
     user = where('email = ? AND confirmed_at IS NOT NULL', email).first
@@ -55,10 +55,14 @@ class User < ActiveRecord::Base
   end
 
   def send_confirmation_instructions
-    generate_token(:confirmation_token) if self.confirmation_token.nil?
+    generate_token(:confirmation_token)
     self.confirmation_sent_at = Time.zone.now
-    save!
     UserMailer.confirmation_instructions(self).deliver
+  end
+
+  def send_confirmation_instructions_and_save
+    send_confirmation_instructions
+    save!
   end
 
   def confirm!
@@ -92,6 +96,12 @@ class User < ActiveRecord::Base
 
   def authenticated_with_omniauth?
     uid && provider
+  end
+
+  def logout(cookies)
+    track_on_logout
+    reset_remember_token_and_save
+    cookies.delete(:remember_token)
   end
 
   private

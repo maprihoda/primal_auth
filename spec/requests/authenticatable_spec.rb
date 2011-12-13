@@ -57,6 +57,8 @@ end
 describe 'Editting profile' do
   let(:user) { Factory(:user) }
   let!(:last_name) { user.name }
+  let!(:last_email) { user.email }
+  let!(:last_token) { user.remember_token }
   before { login(user) }
 
   it 'should edit profile successfully' do
@@ -72,6 +74,17 @@ describe 'Editting profile' do
     current_path.should == dashboard_path
   end
 
+  it 'should require email confirmation' do
+    visit edit_current_user_path
+    fill_in 'Name', :with => 'A new name'
+    fill_in 'Email', :with => 'newemail@example.com'
+    click_button 'Update'
+    user.reload
+    user.name.should_not == last_name
+    user.email.should_not == last_email
+    user.remember_token.should_not == last_token
+    current_path.should == confirmation_needed_path
+  end
 end
 
 describe 'Login required for not logged in users' do
