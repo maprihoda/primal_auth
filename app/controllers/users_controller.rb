@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :login_required, :only => [:new, :create, :confirmation_needed]
+  skip_before_filter :login_required, :only => [:new, :create]
 
   def new
     @user = User.new
@@ -22,6 +22,18 @@ class UsersController < ApplicationController
 
   def update
     @user = current_user
+
+    if params[:user][:email].present? && params[:user][:email] != @user.email
+      @user.confirmed_at = nil
+      @user.attributes = params[:user]
+      @user.send_confirmation_instructions
+
+      @user.logout(cookies)
+      reset_session
+
+      redirect_to :action => :confirmation_needed, :controller => :confirmations
+      return
+    end
 
     if @user.update_attributes(params[:user])
       redirect_to dashboard_url, :notice => "Your profile has been updated."

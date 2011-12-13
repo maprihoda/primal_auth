@@ -24,10 +24,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.track_on_logout
-    current_user.reset_remember_token_and_save  # can't rely on the 'save_current_user_if_dirty' after_filter here
-
-    cookies.delete(:remember_token)
+    current_user.logout(cookies)
     reset_session
 
     redirect_to root_url, :notice => "You have been logged out."
