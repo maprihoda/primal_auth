@@ -54,6 +54,7 @@ Run the tests with
 * Lockable
 * Timeoutable
 * Account deletion
+* Migrate to Postgres + add indexes
 
 
 ## Contributing
