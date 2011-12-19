@@ -17,7 +17,7 @@ group :development do
   gem 'awesome_print'
   gem 'hirb'
   gem 'hash_syntax'
-  gem 'annotate'
+  gem 'annotate', :git => 'git://github.com/ctran/annotate_models.git'
 end
 
 gem "rspec-rails", :group => [:test, :development]
