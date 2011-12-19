@@ -15,7 +15,7 @@ describe 'Remember me' do
     current_path.should == dashboard_path
 
     # simulate closing the browser
-    # this deletes the session cookie and any expired cookies so our remember_me cookie stays untouched
+    # this deletes the session cookie and any expired cookies, but our remember_me cookie stays untouched
     # (see the show_me_the_cookies gem)
     expire_cookies
 

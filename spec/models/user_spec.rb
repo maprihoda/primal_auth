@@ -12,7 +12,7 @@ describe User do
 
   context 'authentication' do
     it 'should return the user object if the credentials match' do
-      User.authenticate(user.email, user.password).should == user
+      User.authenticate(user.email.upcase, user.password).should == user
     end
 
     it 'should return nil if the credentials do not match' do
@@ -104,5 +104,11 @@ describe User do
     end
   end
 
+  it 'downcases email on user#save' do
+    user.email = 'JOE@EXAMPLE.COM'
+    user.save
+    user.reload
+    user.email.should == 'joe@example.com'
+  end
 end
 

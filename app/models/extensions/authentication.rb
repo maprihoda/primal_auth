@@ -20,7 +20,7 @@ module Extensions
       validates_confirmation_of :password, :allow_blank => true
       validates_length_of :password, :within => 6..40, :allow_blank => true
 
-      before_save :prepare_password
+      before_save :prepare_password, :downcase_email
       before_create { generate_token(:remember_token) }
       before_create { generate_token(:confirmation_token) unless authenticated_with_omniauth? }
       after_create { send_confirmation_instructions_and_save unless authenticated_with_omniauth? }
@@ -28,7 +28,7 @@ module Extensions
 
     module ClassMethods
       def authenticate(email, pass)
-        user = where('email = ? AND confirmed_at IS NOT NULL', email).first
+        user = where('email = ? AND confirmed_at IS NOT NULL', email.downcase).first
         return user if user && user.password_hash == user.encrypt_password(pass)
       end
 
@@ -120,6 +120,10 @@ module Extensions
           self.password_salt = BCrypt::Engine.generate_salt
           self.password_hash = encrypt_password(password)
         end
+      end
+
+      def downcase_email
+        email.downcase! if email.present?
       end
 
       def generate_token(column)
