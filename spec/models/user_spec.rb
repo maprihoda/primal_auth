@@ -111,4 +111,3 @@ describe User do
     user.email.should == 'joe@example.com'
   end
 end
-
